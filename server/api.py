@@ -2,6 +2,8 @@ import nltk
 import sys
 import os
 
+from server.chat.mysql_database_chat import mysql_database_chat
+
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from configs import VERSION
@@ -158,7 +160,10 @@ def mount_knowledge_routes(app: FastAPI):
     app.post("/chat/agent_chat",
              tags=["Chat"],
              summary="与agent对话")(agent_chat)
-
+    ###todo
+    app.post("/chat/mysql_database_chat",
+             tags=["Chat"],
+             summary="与mysql数据库对话")(mysql_database_chat)
     # Tag: Knowledge Base Management
     app.get("/knowledge_base/list_knowledge_bases",
             tags=["Knowledge Base Management"],

@@ -43,7 +43,15 @@ async def wrap_done(fn: Awaitable, event: asyncio.Event):
         # Signal the aiter to stop.
         event.set()
 
+def get_table_info(name: str) -> Optional[str]:
+    '''
+    从prompt_config中加载table内容
+    '''
+    from configs import table_config
+    import importlib
+    importlib.reload(table_config)  # TODO: 检查configs/prompt_config.py文件有修改再重新加载
 
+    return table_config.TABLE_INFO.get(name)
 def get_ChatOpenAI(
         model_name: str,
         temperature: float,
